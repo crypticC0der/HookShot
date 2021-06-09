@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-	public float mass =1;
-	public float lambda = 20;
-	public float net_len = 2;
-	const float acceleration=16/3;
-	float max_speed;
-	public float res;
+	public TextMesh text;
+	bool boosting=false;
+	public float fuel=1F/2F;
+	float mass =3;
+	float lambda = 20;
+	float net_len = 3;
+	const float acceleration=16F/3F;
+	public float max_speed;
+	float res=4;
 	public bool hooked=false;
 	public Transform hook;
     // Start is called before the first frame update
@@ -35,13 +38,18 @@ public class Move : MonoBehaviour
 			float length = Mathf.Sqrt(dist.x*dist.x + dist.y*dist.y);
 			Vector3 force = dist.normalized * (lambda*length/net_len); 
 			acc += force/mass;
-			max_speed=32/3;
+			max_speed-= Time.deltaTime * (max_speed - 8)*4;
 		}
 		else
 		{
-			max_speed-= Time.deltaTime * (max_speed - 8/3)*2;
+			max_speed-= Time.deltaTime * (max_speed - 8F/3F)*2;
 		}
-
+		boosting = Input.GetAxis("Boost")>0 && fuel>0;
+		float tmax_spd = max_speed;
+		if (boosting){
+			fuel -=Time.deltaTime;
+			max_speed*=2;	
+		}
 		vel += acc*Time.deltaTime;
 		if (vel.x< 0.001F && vel.x>-0.001F){vel.x=0;}
 		if (vel.y< 0.001F && vel.y>-0.001F){vel.y=0;}
@@ -49,9 +57,10 @@ public class Move : MonoBehaviour
 		if(spd>max_speed){vel*=max_speed/spd;}
 		transform.position+=vel*Time.deltaTime;
 		if (spd>0.2){
-			float theata = -Mathf.Atan(vel.x/vel.y)*180/Mathf.PI;
+			float theata = -Mathf.Atan(vel.x/vel.y)*180F/Mathf.PI;
 			if (vel.y<0){theata+=180;}
 			transform.eulerAngles = new Vector3(0,0,theata);
 		}
+		max_speed=tmax_spd;
     }
 }
