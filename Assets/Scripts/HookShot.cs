@@ -31,7 +31,7 @@ public class HookShot : MonoBehaviour
 			v-=transform.position;
 			v.z=0;
 			v=v.normalized;
-			v*=7;
+			v*=32;
 			shot =true;
 			hb.trail = cshot;
 			hb.vel=v;
