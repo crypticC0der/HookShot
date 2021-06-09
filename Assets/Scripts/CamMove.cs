@@ -5,6 +5,8 @@ using UnityEngine;
 public class CamMove : MonoBehaviour
 {
     // Start is called before the first frame update
+	public Transform player;
+	
     void Start()
     {
         
@@ -13,6 +15,12 @@ public class CamMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+		Vector3 pos = player.position;
+		if (pos.x>4.25F){pos.x=4.25F;}
+		if (pos.x<-4.25F){pos.x=-4.25F;}
+		if (pos.y>2.175F){pos.y=2.175F;}
+		if (pos.y<-2.175F){pos.y=-2.175F;}
+		pos.z = -10;
+		transform.position=pos;
     }
 }

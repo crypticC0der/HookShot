@@ -48,5 +48,10 @@ public class Move : MonoBehaviour
 		float spd = Mathf.Sqrt(vel.x*vel.x + vel.y*vel.y);
 		if(spd>max_speed){vel*=max_speed/spd;}
 		transform.position+=vel*Time.deltaTime;
+		if (spd>0.2){
+			float theata = -Mathf.Atan(vel.x/vel.y)*180/Mathf.PI;
+			if (vel.y<0){theata+=180;}
+			transform.eulerAngles = new Vector3(0,0,theata);
+		}
     }
 }
