@@ -30,6 +30,7 @@ public class PlayerControl : MonoBehaviour
 		Alf.self=gameObject;
 		Alf.armor=0;
 		Alf.boosting=false;
+		Alf.boostMod=8;
 		Alf.contactDMG=.5F;
 		Alf.bars=bars;
 		Alf.UpdateBars();

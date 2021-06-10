@@ -70,7 +70,6 @@ public class SordControl : MonoBehaviour
 					}
 					Vector3 change = epart.transform.position-lpartpos;
 					while(i<particles){
-						Debug.Log(angle_aim);
 						GameObject cpart=Instantiate(PlayerControl.Alf.weapon.particle) as GameObject;
 						cpart.transform.position = lpartpos + change*((float)i/(float)particles);
 						particled=true;
