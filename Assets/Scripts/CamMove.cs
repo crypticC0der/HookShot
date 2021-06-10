@@ -5,7 +5,6 @@ using UnityEngine;
 public class CamMove : MonoBehaviour
 {
     // Start is called before the first frame update
-	public Transform player;
 	public static Camera maincam;
 	
     void Start()
@@ -16,7 +15,7 @@ public class CamMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		Vector3 pos = player.position;
+		Vector3 pos = Move.player.position;
 		if (pos.x>4.25F){pos.x=4.25F;}
 		if (pos.x<-4.25F){pos.x=-4.25F;}
 		if (pos.y>2.175F){pos.y=2.175F;}
