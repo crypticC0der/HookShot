@@ -13,7 +13,7 @@ public class CamMove : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
 		Vector3 pos = Move.player.position;
 		if (pos.x>4.25F){pos.x=4.25F;}

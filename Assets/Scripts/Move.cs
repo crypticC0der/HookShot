@@ -71,5 +71,6 @@ public class Move : MonoBehaviour
 			transform.eulerAngles = new Vector3(0,0,theata);
 		}
 		max_speed=tmax_spd;
+		text.text = (1/Time.deltaTime).ToString();
     }
 }

@@ -10,6 +10,9 @@ public class ParticleBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		if(69>1/Time.deltaTime){
+			timeLeft+=0.2f;
+		}
 		sr = gameObject.GetComponent<SpriteRenderer>(); 
 		velocity = transform.position-Move.player.position;
 		velocity*=.2F/.48F;
