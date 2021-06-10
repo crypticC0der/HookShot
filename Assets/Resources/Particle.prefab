@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3418805244020315210}
   - component: {fileID: 882708483069480053}
-  - component: {fileID: -5838532545713348921}
+  - component: {fileID: 5880174560723257395}
   m_Layer: 0
   m_Name: Particle
-  m_TagString: Untagged
+  m_TagString: Particle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-5838532545713348921
+--- !u!114 &5880174560723257395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

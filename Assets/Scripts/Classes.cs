@@ -11,6 +11,7 @@ public class Entity{
 
 	void Die(){
 		GameObject.Destroy(self);
+		PlayerControl.Alf.fuel=PlayerControl.Alf.maxFuel;
 	}
 
 
@@ -35,7 +36,16 @@ public class Player:ArmedEntity{
 	public float fuelRegen; 
 	public float fuel;
 	public bool boosting;
+	public float boostMod;
 	public Transform[] bars;
+	
+	public float GetContactDMG(){
+		float ret = weapon.GetDMG()*contactDMG;
+		if (boosting){
+			ret*=boostMod;
+		}
+		return ret;
+	}
 
 	void StatToBar(Transform bar,float current,float max){
 		bar.localScale = new Vector3(3.5f*current/max,.25f,1);
