@@ -5,15 +5,10 @@ using UnityEngine;
 public class SordControl : MonoBehaviour
 {
 	Vector3 lpartpos;
-	public GameObject sord;
-	public GameObject particle;
 	SpriteRenderer sordsr;
-	const float part_interval=1F;
-	const float max_rot=60;
-	float angle_aim=max_rot;
-	float rps=1280;
+	float angle_aim;
 	int sign=1;
-	float timer=.5F;
+	float timer=0F;
 	float prevAngle;
 
 	Vector3 posAtAngle(float angle){
@@ -25,18 +20,19 @@ public class SordControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		angle_aim=PlayerControl.Alf.weapon.max_rot;
 		lpartpos=new Vector3(0,0,0);
-		sordsr = sord.GetComponent<SpriteRenderer>() as SpriteRenderer; 
+		sordsr = PlayerControl.Alf.weapon.self.GetComponent<SpriteRenderer>() as SpriteRenderer; 
     }
 
     // Update is called once per frame
     void Update()
     {
-		float angle=sord.transform.localEulerAngles.z;
+		float angle=PlayerControl.Alf.weapon.self.transform.localEulerAngles.z;
 		if (Input.GetMouseButtonDown(0)){
-			rps*=-1;
+			PlayerControl.Alf.weapon.radSpd*=-1;
 			lpartpos=new Vector3(0,0,0);
-			if (angle>max_rot&&angle<360-max_rot){
+			if (angle>PlayerControl.Alf.weapon.max_rot&&angle<360-PlayerControl.Alf.weapon.max_rot){
 				angle=angle_aim;
 			}
 			prevAngle=angle;
@@ -44,37 +40,38 @@ public class SordControl : MonoBehaviour
 			sign*=-1;
 			
 
-			while(1/Time.deltaTime<69&&((prevAngle+part_interval<angle_aim && sign==1) || (prevAngle-part_interval>angle_aim&&sign==-1))){
-				GameObject cpart=Instantiate(particle) as GameObject;
+			while(1/Time.deltaTime<69&&((prevAngle+PlayerControl.Alf.weapon.part_interval<angle_aim && sign==1) || (prevAngle-PlayerControl.Alf.weapon.part_interval>angle_aim&&sign==-1))){
+				GameObject cpart=Instantiate(PlayerControl.Alf.weapon.particle) as GameObject;
 				cpart.transform.position=transform.position+posAtAngle(prevAngle+transform.eulerAngles.z)*0.48F;
-				prevAngle+=part_interval*sign;
+				prevAngle+=PlayerControl.Alf.weapon.part_interval*sign;
 			}
 
 
 	    }
-		bool swing = angle <=max_rot|| angle>=360-max_rot; 
+		bool swing = angle <=PlayerControl.Alf.weapon.max_rot|| angle>=360-PlayerControl.Alf.weapon.max_rot; 
 		sordsr.enabled = (swing||timer>0);
 		timer-=Time.deltaTime;
 		if (swing){
-			sord.transform.localEulerAngles=new Vector3(0,0,angle+rps*Time.deltaTime);
+			PlayerControl.Alf.weapon.self.transform.localEulerAngles=new Vector3(0,0,angle+PlayerControl.Alf.weapon.radSpd*Time.deltaTime);
 			Vector3 pos=posAtAngle(angle);
-			sord.transform.localPosition=pos*.38F;
+			PlayerControl.Alf.weapon.self.transform.localPosition=pos*.38F;
 			if (angle>180){
 				angle=angle-360;
 			}
 			bool particled=false;
 			if(1/Time.deltaTime >69){
-				int particles = (int)(angle-prevAngle/part_interval) * sign;
+				int particles = (int)(angle-prevAngle/PlayerControl.Alf.weapon.part_interval) * sign;
 				int i =0;
 				if (particles>0){
-					GameObject epart = Instantiate(particle) as GameObject;
+					GameObject epart = Instantiate(PlayerControl.Alf.weapon.particle) as GameObject;
 					epart.transform.position=transform.position+posAtAngle(prevAngle+transform.eulerAngles.z)*0.48F;
 					if (lpartpos.x==0 && lpartpos.y==0){
 						lpartpos=epart.transform.position;
 					}
 					Vector3 change = epart.transform.position-lpartpos;
 					while(i<particles){
-						GameObject cpart=Instantiate(particle) as GameObject;
+						Debug.Log(angle_aim);
+						GameObject cpart=Instantiate(PlayerControl.Alf.weapon.particle) as GameObject;
 						cpart.transform.position = lpartpos + change*((float)i/(float)particles);
 						particled=true;
 						i+=1;
@@ -82,10 +79,10 @@ public class SordControl : MonoBehaviour
 					lpartpos=epart.transform.position;
 				}
 			}
-			while((prevAngle+part_interval<angle && sign==1) || (prevAngle-part_interval>angle&&sign==-1)){
-				GameObject cpart=Instantiate(particle) as GameObject;
+			while((prevAngle+PlayerControl.Alf.weapon.part_interval<angle && sign==1) || (prevAngle-PlayerControl.Alf.weapon.part_interval>angle&&sign==-1)){
+				GameObject cpart=Instantiate(PlayerControl.Alf.weapon.particle) as GameObject;
 				cpart.transform.position=transform.position+posAtAngle(prevAngle+transform.eulerAngles.z)*0.48F;
-				prevAngle+=part_interval*sign;
+				prevAngle+=PlayerControl.Alf.weapon.part_interval*sign;
 			}
 			if (particled){
 				prevAngle=angle;

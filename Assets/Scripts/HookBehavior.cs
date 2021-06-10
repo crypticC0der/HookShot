@@ -44,7 +44,7 @@ public class HookBehavior : MonoBehaviour
 		if (shooting && scalarDist>50){
 			Suicide();
 		}
-		sr.size = new Vector2(0.1F,scalarDist*2);
+		sr.size = new Vector2(0.1F,scalarDist*2 -0.43F);
 		float theata = -Mathf.Atan(dist.x/dist.y)*180/Mathf.PI;
 		if (dist.y<0){theata+=180;}
 		trail.transform.eulerAngles = new Vector3(0,0,theata);
