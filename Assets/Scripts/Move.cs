@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
+	ParticleSystem boostparts;
 	public TextMesh text;
 	bool boosting=false;
 	public float fuel=1F/2F;
@@ -19,6 +20,7 @@ public class Move : MonoBehaviour
     void Start()
     {
        vel = new Vector3(0,0,0); 
+	   boostparts=gameObject.GetComponent<ParticleSystem>() as ParticleSystem;
     }
 
 	Vector3 vel;
@@ -45,7 +47,9 @@ public class Move : MonoBehaviour
 			max_speed-= Time.deltaTime * (max_speed - 8F/3F)*2;
 		}
 		boosting = Input.GetAxis("Boost")>0 && fuel>0;
-		float tmax_spd = max_speed;
+		float tmax_spd = max_speed;	
+		ParticleSystem.EmissionModule em = boostparts.emission;
+		em.enabled =boosting;
 		if (boosting){
 			fuel -=Time.deltaTime;
 			max_speed*=2;	
