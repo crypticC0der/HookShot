@@ -7,7 +7,6 @@ public class Move : MonoBehaviour
 	public static Transform player;
 	ParticleSystem boostparts;
 	public TextMesh text;
-	bool boosting=false;
 	float mass =3;
 	float lambda = 20;
 	float net_len = 3;
@@ -28,11 +27,11 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		boosting = (Input.GetAxis("Boost")>0 && PlayerControl.Alf.fuel>0) && (boosting||PlayerControl.Alf.maxFuel/2<PlayerControl.Alf.fuel);
+		PlayerControl.Alf.boosting = (Input.GetAxis("Boost")>0 && PlayerControl.Alf.fuel>0) && (PlayerControl.Alf.boosting||PlayerControl.Alf.maxFuel/2<PlayerControl.Alf.fuel);
 		float h = Input.GetAxis("Horizontal");
 		float v = Input.GetAxis("Vertical");
 		Vector3 acc = new Vector3(h,v,0)*(res + acceleration);
-		if (boosting){
+		if (PlayerControl.Alf.boosting){
 			acc*=3;	
 		}
 		if (vel.y>0){acc.y-=res;}
@@ -53,8 +52,8 @@ public class Move : MonoBehaviour
 		}
 		float tmax_spd = max_speed;	
 		ParticleSystem.EmissionModule em = boostparts.emission;
-		em.enabled =boosting;
-		if (boosting){
+		em.enabled =PlayerControl.Alf.boosting;
+		if (PlayerControl.Alf.boosting){
 			PlayerControl.Alf.fuel -=Time.deltaTime;
 			if (PlayerControl.Alf.fuel<0){
 				PlayerControl.Alf.fuel=0;

@@ -26,10 +26,15 @@ public class Entity{
 	}
 }
 
-public class Player:Entity{
+public class ArmedEntity:Entity{
+	public Weapon weapon;
+}
+
+public class Player:ArmedEntity{
 	public float maxFuel;
 	public float fuelRegen; 
 	public float fuel;
+	public bool boosting;
 	public Transform[] bars;
 
 	void StatToBar(Transform bar,float current,float max){
@@ -44,7 +49,6 @@ public class Player:Entity{
 	}
 
 	public void UpdateFuel(){
-		Debug.Log(fuel);
 		if(fuel<maxFuel){
 			fuel+=fuelRegen*Time.deltaTime;
 			if(fuel>maxFuel){
@@ -52,5 +56,26 @@ public class Player:Entity{
 			}
 			UpdateBars();
 		}
+	}
+}
+
+public class Weapon{
+	public float damage;
+	public float radSpd;
+	public float max_rot;
+	public float part_interval;
+	public GameObject self;
+	public GameObject particle;
+	public float particleDMG;
+	public float critChance;
+	
+	public float GetDMG(){
+		if (Random.value<=critChance){
+			return damage*10;
+		}
+		return damage;
+	}
+	public float GetParticleDMG(){
+		return GetDMG()*particleDMG;
 	}
 }
