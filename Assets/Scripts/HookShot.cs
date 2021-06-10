@@ -5,7 +5,6 @@ using UnityEngine;
 public class HookShot : MonoBehaviour
 {
     // Start is called before the first frame update
-	public Camera cam;
 	public GameObject hook;
 	public GameObject trail;
 	public bool shot=false;
@@ -27,7 +26,7 @@ public class HookShot : MonoBehaviour
 			shot = true;
 			hb.player = gameObject;
 			Vector2 pos = Input.mousePosition;
-			Vector3 v = cam.ScreenToWorldPoint(new Vector3(pos.x,pos.y,0));
+			Vector3 v = CamMove.maincam.ScreenToWorldPoint(new Vector3(pos.x,pos.y,0));
 			v-=transform.position;
 			v.z=0;
 			v=v.normalized;
