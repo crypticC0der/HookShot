@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
+	public static Transform player;
 	ParticleSystem boostparts;
 	public TextMesh text;
 	bool boosting=false;
@@ -19,8 +20,9 @@ public class Move : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       vel = new Vector3(0,0,0); 
-	   boostparts=gameObject.GetComponent<ParticleSystem>() as ParticleSystem;
+		player=transform;
+		vel = new Vector3(0,0,0); 
+		boostparts=gameObject.GetComponent<ParticleSystem>() as ParticleSystem;
     }
 
 	Vector3 vel;
