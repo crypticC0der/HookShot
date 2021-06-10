@@ -6,10 +6,11 @@ public class CamMove : MonoBehaviour
 {
     // Start is called before the first frame update
 	public Transform player;
+	public static Camera maincam;
 	
     void Start()
     {
-        
+       maincam = gameObject.GetComponent<Camera>() as Camera; 
     }
 
     // Update is called once per frame

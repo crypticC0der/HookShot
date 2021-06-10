@@ -27,9 +27,13 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		boosting = Input.GetAxis("Boost")>0 && fuel>0;
 		float h = Input.GetAxis("Horizontal");
 		float v = Input.GetAxis("Vertical");
 		Vector3 acc = new Vector3(h,v,0)*(res + acceleration);
+		if (boosting){
+			acc*=3;	
+		}
 		if (vel.y>0){acc.y-=res;}
 		if (vel.y<0){acc.y+=res;}
 		if (vel.x>0){acc.x-=res;}
@@ -46,7 +50,6 @@ public class Move : MonoBehaviour
 		{
 			max_speed-= Time.deltaTime * (max_speed - 8F/3F)*2;
 		}
-		boosting = Input.GetAxis("Boost")>0 && fuel>0;
 		float tmax_spd = max_speed;	
 		ParticleSystem.EmissionModule em = boostparts.emission;
 		em.enabled =boosting;
